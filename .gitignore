@@ -1,0 +1,5 @@
+**/**/node_modules
+**/**/__deployer__.zip
+.nimbella
+.env
+*~
