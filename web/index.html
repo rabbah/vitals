@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css">
+    <title>Hello vitals.</title>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="col-md-4"></div>
+          <ul class="nav nav-pills">
+				    <li class="nav-item">
+					    <a class="nav-link active" href="index.html">Home</a>
+				    </li>
+				    <li class="nav-item">
+					    <a class="nav-link" href="diary.html">Diary</a>
+				    </li>
+			    </ul>
+        </div>
+      </div>
+
+	    <div class="row">
+		    <div class="col-md-12">
+          <div class="col-md-4"></div>
+			    <div class="jumbotron col-md-4">
+				    <h2>
+					    Hello vitals.
+				    </h2>
+				    <p>
+					    This app is a convenient way for you to keep track of your daily vitals and health diary.
+				    </p>
+			    </div>
+		    </div>
+	    </div>
+    </div>
+
+    <form id="vitals" role="form" method="post" action="/api/vitals/records">
+      <div class="row">
+			  <div class="col-md-12">
+          <div class="col-md-4"></div>
+          <div class="form-group">
+            <div class="col-md-4">
+              <label class="control-label" for="glucose_level">Sugar Level</label>
+              <div class="input-group" style="width:100%">
+                <input id="glucose_level" name="glucose_level" type="number" step="0.01" class="form-control" placeholder="blood sugar level" type="text">
+                <span class="input-group-addon" style="width:100px">mg/dl</span>
+              </div>
+              <p class="help-block">Enter your blood sugar level</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+			  <div class="col-md-12">
+          <div class="col-md-4"></div>
+          <div class="form-group">
+            <div class="col-md-4">
+              <label class="control-label" for="bp_diastolic">Diastolic Blood Pressure</label>
+              <div class="input-group" style="width:100%">
+                <input id="bp_diastolic" name="bp_diastolic" type="number" class="form-control" placeholder="diastolic bp" type="text">
+                <span class="input-group-addon" style="width:100px">mm Hg</span>
+              </div>
+              <p class="help-block">Enter your diastolic blood pressure</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+			  <div class="col-md-12">
+          <div class="col-md-4"></div>
+          <div class="form-group">
+            <div class="col-md-4">
+              <label class="control-label" for="bp_systolic">Systolic Blood Pressure</label>
+              <div class="input-group" style="width:100%">
+                <input id="bp_systolic" name="bp_systolic" type="number" class="form-control" placeholder="systolic bp" type="text">
+                <span class="input-group-addon" style="width:100px">mm Hg</span>
+              </div>
+              <p class="help-block">Enter your systolic blood pressure</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+			  <div class="col-md-12">
+          <div class="col-md-4"></div>
+          <div class="form-group">
+            <div class="col-md-4">
+              <label class="control-label" for="pulse">Pulse</label>
+              <div class="input-group" style="width:100%">
+                <input id="pulse" name="pulse" type="number" class="form-control" placeholder="heart rate" type="text">
+                <span class="input-group-addon" style="width:100px">bpm</span>
+              </div>
+              <p class="help-block">Enter your pulse/heart rate</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+			  <div class="col-md-12">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">
+            <button type="submit" class="btn btn-primary btn-lg btn-block" onclick="doit()">
+						  Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    
+  </body>
+</html>
