@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+  directus:
+    image: directus/directus:v8-apache
+    ports:
+      - "8080:80"
+    environment:
+      DIRECTUS_APP_ENV: "production"
+      DIRECTUS_AUTH_PUBLICKEY: "some random secret"
+      DIRECTUS_AUTH_SECRETKEY: "another random secret"
+      DIRECTUS_DATABASE_HOST: "${DIRECTUS_DATABASE_HOST}"
+      DIRECTUS_DATABASE_PORT: "3306"
+      DIRECTUS_DATABASE_NAME: "${DIRECTUS_DATABASE_NAME}"
+      DIRECTUS_DATABASE_USERNAME: "${DIRECTUS_DATABASE_USERNAME}"
+      DIRECTUS_DATABASE_PASSWORD:  "${DIRECTUS_DATABASE_PASSWORD}"
+    volumes:
+      - ./data/config:/var/directus/config
+      - ./data/uploads:/var/directus/public/uploads    
