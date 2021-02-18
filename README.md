@@ -28,7 +28,7 @@ Before you can deploy the Nimbella application, you need to sign up for a Fauna 
 
 ### Sign up for a Fauna account
 
-- Visit [https://fauna.com/](https://fauna.com/) and follow the instructions to sign up for an account.
+- Visit [fauna.com](https://fauna.com/) and follow the instructions to sign up for an account.
 
 ### Provision a new database
 
@@ -92,7 +92,7 @@ Deployed actions ('nim action get <actionName> --url' for URL):
 
 ## Using the Web App
 
-- Open the URL displayed in the deployment logs, e.g. `https://<nim-namespace>-apigcp.nimbella.io`
+- Open the URL displayed in the deployment logs, e.g. `https://<nim-namespace>-apigcp.nimbella.io`. You can also retrieve your URL by running `nim auth current --web`.
 
 ![](.images/form.png)
 
