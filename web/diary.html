@@ -71,7 +71,7 @@
       .then(response => response.json())
       .then(data => {
         data.forEach(row => {
-          const timestamp = row.created_on ? moment(row.created_on).format('M/D/YY h:mm a') : '???'
+          const timestamp = row.timestamp ? moment(row.created_on).format('M/D/YY h:mm a') : '???'
           $("#diary").find('tbody').append(
            `<tr><td>${timestamp}</td><td>${row.bp_diastolic}/${row.bp_systolic}</td><td>${row.pulse}</td><td>${row.glucose_level}</td></tr>`
           )

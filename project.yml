@@ -1,4 +1,5 @@
 packages:
   - name: vitals
     environment: ${<.env}
-
+    actions:
+      - name: records

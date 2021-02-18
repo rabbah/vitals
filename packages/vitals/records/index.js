@@ -1,5 +1,7 @@
 const moment = require('moment')
-const { mysql } = require('./nim')
+const DB = require('./db')
+
+const db = DB(process.env.FAUNADB_COLLECTION, process.env.FAUNADB_SECRET)
 
 function isNumeric(args, field, floatOK = false) {
     let val = args[field]
@@ -19,62 +21,51 @@ function isNumeric(args, field, floatOK = false) {
 }
 
 async function addRecord(args) {
-    try {
-        const valid = await Promise.all([
-            isNumeric(args, 'pulse'),
-            isNumeric(args, 'bp_systolic'),
-            isNumeric(args, 'bp_diastolic'),
-            isNumeric(args, 'glucose_level', true)
-        ])
-    } catch (e) {
-        return {
-            body: {
-                ok: false,
-                error: e.message
-            }
-        }
+  try {
+    const valid = await Promise.all([
+      isNumeric(args, 'pulse'),
+      isNumeric(args, 'bp_systolic'),
+      isNumeric(args, 'bp_diastolic'),
+      isNumeric(args, 'glucose_level', true)
+    ])
+  } catch (e) {
+    return {
+      body: { ok: false, error: e.message }
     }
+  }
 
-    const {pulse = 0, bp_systolic = 0, bp_diastolic = 0, glucose_level = 0 } = args
-    return mysql.then(connection => {
-        const timestamp = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
-        return connection.query(
-            `INSERT INTO vitals(pulse, bp_systolic, bp_diastolic, glucose_level, created_on)
-             VALUES ("${pulse}", "${bp_systolic}", "${bp_diastolic}", "${glucose_level}", "${timestamp}")`
-        )
-    }).then(([rows, fields]) => {
-        return {
-            statusCode: 303,
-            headers: {
-                location: `/diary.html`
-            }
-        }
-    }).catch(e => {
-        console.log(e)
-
-        return {
-            body: {
-                ok: false,
-                error: e.message
-            }
-        }
+  const { pulse = 0, bp_systolic = 0, bp_diastolic = 0, glucose_level = 0 } = args
+  const timestamp = moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+  try {
+    await db.add_record({
+      pulse, bp_systolic, bp_diastolic, glucose_level, timestamp
     })
+  } catch (e) {
+    console.log(e)
+    return {
+      body: { ok: false, error: e.message }
+    }
+  }
+    
+  return {
+    statusCode: 303,
+    headers: {
+      location: `/diary.html`
+    }
+  }
 }
 
 async function getRecords(args) {
-    return mysql
-        .then(connection => connection.query(`SELECT * FROM vitals;`))
-        .then(([rows, fields]) => ({ body: rows }))
-        .catch(e => {
-            console.log(e)
-            return {
-                statusCode: 500,
-                body: {
-                    ok: false,
-                    error: 'Internal error.'
-                }
-            }
-        })
+  try {
+    const results = await db.get_records()
+    const rows = results.data.map(r => r.data)
+    return { body: rows }
+  } catch (e) {
+    console.log(e)
+    return { statusCode: 500, body: {
+      ok: false, error: 'Internal error.'
+    }}
+  }
 }
 
 async function router(args) {
