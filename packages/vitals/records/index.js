@@ -78,7 +78,7 @@ async function getRecords(args) {
 }
 
 async function router(args) {
-  switch (args.__ow_method || '') {
+  switch (args.httpMethod || '') {
     case 'get': return getRecords(args)
     case 'post': return addRecord(args)
     default: return {
