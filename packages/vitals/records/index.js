@@ -78,7 +78,8 @@ async function getRecords(args) {
 }
 
 async function router(args) {
-  switch (args.httpMethod || '') {
+  const method = (args.httpMethod || 'get').toLowerCase()
+  switch (method) {
     case 'get': return getRecords(args)
     case 'post': return addRecord(args)
     default: return {
