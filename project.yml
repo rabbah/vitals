@@ -1,4 +1,6 @@
-  - name: vitals
+
+packages:
+- name: vitals
     environment: $(
       DB_HOST
       DB_PORT
