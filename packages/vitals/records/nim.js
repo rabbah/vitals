@@ -1,9 +1,9 @@
 const mysql = require('mysql2/promise');
-const creds = JSON.parse(process.env.__NIM_SQL);
 
 module.exports.mysql = mysql.createConnection({
-    host: creds.host,
-    user: creds.user,
-    database: creds.database,
-    password: creds.password
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
 })
