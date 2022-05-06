@@ -6,6 +6,7 @@ packages:
       DB_USER: "${DB_USER}"
       DB_PASSWORD: "${DB_PASSWORD}"
       DB_NAME: "${DB_NAME}"
+      DB_CERT: "${DB_CERT}"
     actions:
       - name: records
         runtime: nodejs-lambda:14

@@ -1,5 +1,8 @@
 **/**/node_modules
 **/**/__deployer__.zip
+**/**/.env
+**/**/ca-certificate.crt
 .nimbella
 .env
+ca-certificate.crt
 *~
