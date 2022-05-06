@@ -3,11 +3,9 @@
 A stateful web app to record daily vitals.
 Data is stored in a MySQL database.
 
-## Deploy to Nimbella
+## Deploy to DigitalOcean
 
-```
-nim project deploy .
-```
+
 
 ## Directus
 
