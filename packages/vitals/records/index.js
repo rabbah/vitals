@@ -36,7 +36,7 @@ function isNumeric(args, field, floatOK = false) {
     }
 
     if (Number.isInteger(val) || (floatOK && !isNaN(val))) {
-        return Promise.resolve()
+        return Promise.resolve(val)
     } else {
         return Promise.reject(`${field} is not a valid numeric value`)
     }
@@ -56,21 +56,21 @@ async function initTable(connection) {
 }
 
 async function addRecord(connection, args) {
+    let pulse = 0, bp_systolic = 0, bp_diastolic = 0, glucose_level = 0
     try {
-        const valid = await Promise.all([
-            isNumeric(args, 'pulse'),
-            isNumeric(args, 'bp_systolic'),
-            isNumeric(args, 'bp_diastolic'),
-            isNumeric(args, 'glucose_level', true)
+        await Promise.all([
+            isNumeric(args, 'pulse').then(_ => pulse = _),
+            isNumeric(args, 'bp_systolic').then(_ => bp_systolic = _),
+            isNumeric(args, 'bp_diastolic').then(_ => bp_diastolic = _),
+            isNumeric(args, 'glucose_level', true).then(_ => glucose_level = _.toFixed(2))
         ])
     } catch (e) {
         return Promise.reject(e)
     }
 
-    const { pulse = 0, bp_systolic = 0, bp_diastolic = 0, glucose_level = 0 } = args
     return connection.query(
         `INSERT INTO vitals(pulse, bp_systolic, bp_diastolic, glucose_level)
-             VALUES (${pulse}, ${bp_systolic}, ${bp_diastolic}, ${glucose_level.toFixed(2)})`
+             VALUES (${pulse}, ${bp_systolic}, ${bp_diastolic}, ${glucose_level})`
     )
 }
 
